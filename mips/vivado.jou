@@ -1,0 +1,55 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Mon Jun 26 11:13:35 2023
+# Process ID: 22508
+# Current directory: C:/Users/ZhangFirst1/Desktop/cclab/mips
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13096 C:\Users\ZhangFirst1\Desktop\cclab\mips\mips.xpr
+# Log file: C:/Users/ZhangFirst1/Desktop/cclab/mips/vivado.log
+# Journal file: C:/Users/ZhangFirst1/Desktop/cclab/mips\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.xpr
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+close [ open C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v w ]
+add_files C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v
+update_compile_order -fileset sources_1
+close [ open C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v w ]
+add_files C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+file mkdir C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v w ]
+add_files -fileset sim_1 C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v
+update_compile_order -fileset sim_1
+launch_simulation
+update_compile_order -fileset sim_1
+launch_simulation
+launch_simulation
+source mips_min_sopc_sim.tcl
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 4
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+wait_on_run synth_1
+reset_run synth_1
+launch_runs synth_1 -jobs 8
+wait_on_run synth_1
+open_run synth_1 -name synth_1
+close_sim
