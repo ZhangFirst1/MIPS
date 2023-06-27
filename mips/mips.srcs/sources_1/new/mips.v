@@ -96,7 +96,12 @@ if_id if_id0(
 // 译码阶段ID实例化
 // 具体端口功能请参考id文件中的注释
 id id0(
-    .rst(rst), .pc_i(id_pc_i), .inst_i(id_inst_i), //IF/ID传入
+    //IF/ID传入
+    .rst(rst), .pc_i(id_pc_i), .inst_i(id_inst_i), 
+    //EX传入 解决数据相关问题
+    .ex_wdata_i(ex_wdata_o), .ex_wd_i(ex_wd_o), .ex_wreg_i(ex_wreg_o),
+    //MEM传入 解决数据相关问题
+    .mem_wdata_i(mem_wdata_o), .mem_wd_i(mem_wd_o), .mem_wreg_i(mem_wreg_o),
     //来自Regfile的输入
     .reg1_data_i(reg1_data), .reg2_data_i(reg2_data),
     //送到Regfile的数据

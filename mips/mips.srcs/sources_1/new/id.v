@@ -26,14 +26,27 @@ module id(
 input wire rst,     //复位
 input wire[`InstAddrBus] pc_i,    //译码阶段指令对应的地址
 input wire[`InstDataBus] inst_i,  //译码阶段的指令(32bit)
+
 //读取的regfile的值
 input wire[`RegDataBus] reg1_data_i,//regfile模块输入的 第一个寄存器端口的 输入
 input wire[`RegDataBus] reg2_data_i,//regfile模块输入的 第二个寄存器端口的 输入
+
 //输出到regfile的信息
 output reg reg1_read_o,         //regfile模块的 第一个读寄存器端口的 使能信号
 output reg reg2_read_o,         //regfile模块的 第二个读寄存器端口的 使能信号
 output reg[`RegAddrBus] reg1_addr_o,         //regfile模块的 第一个读寄存器端口的 地址信号
 output reg[`RegAddrBus] reg2_addr_o,         //regfile模块的 第二个读寄存器端口的 地址信号
+
+/************以下是为了解决数据相关问题的措施（使用数据前推）*************/
+//执行阶段指令结果（解决相邻指令数据相关）
+input wire ex_wreg_i,               //处于 执行阶段 是否要写入目的寄存器
+input wire[`RegDataBus] ex_wdata_i,  //处于 执行阶段 要写入目的寄存器的数据
+input wire[`RegAddrBus] ex_wd_i,    //处于 执行阶段 目的寄存器地址
+//访存阶段结果（解决相隔一条指令数据相关）
+input wire mem_wreg_i,              //同上 但处于访存阶段
+input wire[`RegDataBus] mem_wdata_i,
+input wire[`RegAddrBus] mem_wd_i,
+
 //送到执行阶段的信息
 output reg[`AluOpBus] aluop_o,  //译码阶段的指令要进行的运算的子类型
 output reg[`AluSelBus] alusel_o,//译码阶段的指令要进行的运算的类型
@@ -41,6 +54,7 @@ output reg[`RegDataBus] reg1_o, //译码阶段源操作数1（32位）
 output reg[`RegDataBus] reg2_o, //译码阶段原操作数2
 output reg[`RegAddrBus] wd_o,   //译码阶段要写入的目的寄存器地址（5位）
 output reg wreg_o               //译码阶段的指令是否有要写入的目的寄存器
+
     );
 //取得指令的指令码、功能码
 //对于ori 判断26-31位的值即可判断
@@ -97,9 +111,17 @@ always @(*) begin
 end //always
 
 /*******************2.确定源操作数1***********************/
+
 always @ (*) begin
     if(rst == `RstEnable) begin
         reg1_o <= `Zero;
+    //接下来两条if用于解决数据线相关问题
+    //如果Regfile模块读端口1要读取的寄存器就是执行阶段要写的寄存器，直接把执行结果赋给reg1_o
+    end else if((reg1_read_o == 1'b1) && (ex_wreg_i == 1'b1) && (ex_wd_i == reg1_addr_o)) begin
+        reg1_o <= ex_wdata_i;
+    //如果Regfile模块读端口1要读取的寄存器是访存阶段要写的寄存器，直接把执行结果给reg1_o
+    end else if((reg1_read_o == 1'b1) && (mem_wreg_i == 1'b1) && (mem_wd_i == reg1_addr_o)) begin
+        reg1_o <= mem_wdata_i;
     end else if(reg1_read_o == 1'b1) begin
         reg1_o <= reg1_data_i; // Regfile读端口1的输出值
     end else if (reg1_read_o == 1'b0) begin
@@ -113,6 +135,13 @@ end
 always @ (*) begin
     if(rst == `RstEnable) begin
         reg2_o <= `Zero;
+    //接下来两条if用于解决数据线相关问题
+    //如果Regfile模块读端口2要读取的寄存器就是执行阶段要写的寄存器，直接把执行结果赋给reg1_o
+    end else if((reg2_read_o == 1'b1) && (ex_wreg_i == 1'b1) && (ex_wd_i == reg2_addr_o)) begin
+        reg2_o <= ex_wdata_i;
+    //如果Regfile模块读端口2要读取的寄存器是访存阶段要写的寄存器，直接把执行结果给reg1_o
+    end else if((reg2_read_o == 1'b1) && (mem_wreg_i == 1'b1) && (mem_wd_i == reg2_addr_o)) begin
+        reg2_o <= mem_wdata_i;
     end else if(reg2_read_o == 1'b1) begin
         reg2_o <= reg2_data_i; // Regfile读端口1的输出值
     end else if (reg2_read_o == 1'b0) begin

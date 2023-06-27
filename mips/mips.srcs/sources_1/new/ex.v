@@ -44,7 +44,7 @@ output reg[`RegDataBus] wdata_o //最终要写入目的寄存器的 值
 // 逻辑运算的结果
 reg[`RegDataBus] logicout;
 
-/***************1.根据aluop_i的运算字类型进行运算（暂时只有或）********************/    
+/***************1.根据aluop_i的运算子类型进行运算（暂时只有或）********************/    
 always @(*) begin
     if(rst == `RstEnable) begin
         logicout <= `Zero;
