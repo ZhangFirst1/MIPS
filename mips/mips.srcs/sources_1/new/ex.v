@@ -44,7 +44,34 @@ output reg[`RegDataBus] wdata_o //最终要写入目的寄存器的 值
 // 逻辑运算的结果
 reg[`RegDataBus] logicout;
 
-/***************1.根据aluop_i的运算子类型进行运算（暂时只有或）********************/    
+// 算数运算
+reg[`RegDataBus] arithmetic_res;           //运算结果
+wire[`RegDataBus] reg2_i_mux;   //保存第二个操作数的补码
+wire[`RegDataBus] res_sum;      //加法结果
+
+/*************************1.计算加减法结果********************************/
+//1.1是无符号减则reg2_i_mux等于第二个数reg2_i的补码 否则reg2_i_mux等于第二个操作数reg2_i
+assign reg2_i_mux = (aluop_i == `EXE_SUBU_OP) ? (~reg2_i) + 1 : reg2_i; //取反加1
+//1.2计算结果
+assign res_sum = reg1_i + reg2_i_mux;
+//1.3根据不同运算给res赋值
+always @(*) begin
+    if(rst == `RstEnable) begin
+        arithmetic_res <= `Zero;
+    end else begin
+        case(aluop_i)   //运算类型
+            `EXE_ADDU_OP: begin
+                arithmetic_res <= res_sum;  //加法
+            end //EXE_ADDU_OP
+            `EXE_SUBU_OP: begin
+                arithmetic_res <= res_sum;  //减法
+            end
+        endcase
+    end // else
+end //always
+
+/*************************2.逻辑运算结果********************************/
+/***************2.1根据aluop_i的运算子类型进行运算********************/    
 always @(*) begin
     if(rst == `RstEnable) begin
         logicout <= `Zero;
@@ -60,13 +87,17 @@ always @(*) begin
     end//else
 end//always
 
-/***************1.根据alusel_i选择一个运算结果为最终结果（暂时只有或）********************/   
+/*************** last.根据alusel_i选择一个运算结果为最终结果********************/   
 always @(*) begin
     wd_o <= wd_i;   //要写的目的寄存器
+    //无法判断无符号加减法是否溢出 故无需更改是否读写
     wreg_o <= wreg_i;   //是否要写
     case (alusel_i)
-        `EXE_RES_LOGIC: begin
-            wdata_o <= logicout;    //存放运算结果
+        `EXE_RES_LOGIC: begin       //逻辑运算，写入运算结果
+            wdata_o <= logicout;    
+        end
+        `EXE_RES_ARITHMETIC: begin  //算数运算，写入运算结果
+            wdata_o <= arithmetic_res;
         end
         default: begin
             wdata_o <= `Zero;

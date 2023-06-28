@@ -39,17 +39,23 @@
 
 //******************具体指令定义**********************//
 `define EXE_ORI      6'b001101   //指令ori的指令码
-`define EXE_NOP      6'b000000   
+`define EXE_ADDU     6'b100001   //指令ADDU的指令码
+`define EXE_SUBU     6'b100011   //指令SUBU的指令码
+
+
+`define EXE_SPECIAL_INST   6'b000000    //算数运算
 
 //请注意 此处译码后的指令给出的是MIPS32 Release1指令集 而非报告中MIPS-Lite1指令集
 //后续可能修改编码位数 缩小指令长度
 //AluOp
 `define EXE_OR_OP   8'b00100101   //译码后的指令码
 `define EXE_NOP_OP  8'b00000000
-
+`define EXE_ADDU_OP  8'b00100001
+`define EXE_SUBU_OP  8'b00100011
 //AluSel
 `define EXE_RES_LOGIC   3'b001     //译码后的子操作码
-`define EXE_RES_NOP     3'b000
+`define EXE_RES_ARITHMETIC 3'b100	//算数运算
+`define EXE_RES_NOP 3'b000
 
 //******************存储器ROM相关**********************//
 `define InstAddrBus 31:0 //ROM的地址总线宽度

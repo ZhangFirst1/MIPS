@@ -1,14 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <GenRun Id="synth_1" LaunchPart="xc7a100tfgg484-1" LaunchTime="1687854252">
   <File Type="PA-TCL" Name="mips_min_sopc.tcl"/>
-  <File Type="RDS-PROPCONSTRS" Name="mips_min_sopc_drc_synth.rpt"/>
   <File Type="REPORTS-TCL" Name="mips_min_sopc_reports.tcl"/>
   <File Type="RDS-RDS" Name="mips_min_sopc.vds"/>
   <File Type="RDS-UTIL" Name="mips_min_sopc_utilization_synth.rpt"/>
   <File Type="RDS-UTIL-PB" Name="mips_min_sopc_utilization_synth.pb"/>
   <File Type="RDS-DCP" Name="mips_min_sopc.dcp"/>
-  <File Type="VDS-TIMINGSUMMARY" Name="mips_min_sopc_timing_summary_synth.rpt"/>
-  <File Type="VDS-TIMING-PB" Name="mips_min_sopc_timing_summary_synth.pb"/>
   <FileSet Name="sources" Type="DesignSrcs" RelSrcDir="$PSRCDIR/sources_1">
     <Filter Type="Srcs"/>
     <File Path="$PSRCDIR/sources_1/new/defines.v">

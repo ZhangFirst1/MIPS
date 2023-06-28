@@ -94,7 +94,7 @@ always @(*) begin
         reg2_addr_o <= inst_i[20:16];   //默认通过Regfile读端口2读取的寄存器地址
         imm <= `Zero;
     case (op)
-        `EXE_ORI:begin      //根据op的值判断是否位ori指令
+        `EXE_ORI:begin      //根据op的值判断是否为ori指令
             wreg_o <= `WriteEnable; //ori需要结果写入目的寄存器，所以WriteEnable
             aluop_o <= `EXE_OR_OP;  //运算的子类型是 or
             alusel_o <= `EXE_RES_LOGIC;//运算类型是逻辑运算
@@ -104,6 +104,32 @@ always @(*) begin
             wd_o <= inst_i[20:16];  //执行指令要写的目的寄存器地址rt
             instValid <= `InstValid;    //ori指令是有效指令
         end
+        `EXE_SPECIAL_INST: begin    //是否为SPECIAL（addu与subu）
+            case(op2)
+                5'b00000: begin      //位移为0
+                    case(op3)
+                        `EXE_ADDU: begin    //ADDU指令
+                            wreg_o <= `WriteEnable;     //具体注释请参考ori
+                            aluop_o <= `EXE_ADDU_OP;
+                            alusel_o <= `EXE_RES_ARITHMETIC;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            instValid <= `InstValid;
+                        end
+                        `EXE_SUBU: begin    //SUBU指令
+                             wreg_o <= `WriteEnable;     //具体注释请参考ori
+                            aluop_o <= `EXE_SUBU_OP;
+                            alusel_o <= `EXE_RES_ARITHMETIC;
+                            reg1_read_o <= 1'b1;
+                            reg2_read_o <= 1'b1;
+                            instValid <= `InstValid;                       
+                        end
+                        
+                    endcase
+                
+                end     //5'b00000
+            endcase    //op2
+        end //EXE_SPECIAL_INST
         default: begin
         end
     endcase //case op
