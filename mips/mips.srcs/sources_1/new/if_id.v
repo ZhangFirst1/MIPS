@@ -25,6 +25,7 @@
 module if_id(
 input wire clk,
 input wire rst,
+input wire[5:0] stall,
 //来自取指令阶段的信号 地址与数据
 input wire[`InstAddrBus] if_pc,
 input wire[`InstDataBus] if_inst,
@@ -38,7 +39,10 @@ always @(posedge clk) begin
     if (rst == `RstEnable) begin
         id_pc <= `MarsZero; //复位时pc置MarsZero
         id_inst <= `Zero;   //对应空指令
-    end else begin
+    end else if(stall[1] == `Stop && stall[2] == `NoStop) begin //取值阶段暂停 译码阶段继续 使用空指令作为下一个周期进入译码阶段的指令
+        id_pc <= `MarsZero;
+        id_inst <= `Zero;
+    end else if(stall[1] == `NoStop) begin      //取址阶段继续 得到的指令进入译码阶段
         id_pc <= if_pc;     //非复位直接向下阶段传递值
         id_inst <= if_inst; 
     end

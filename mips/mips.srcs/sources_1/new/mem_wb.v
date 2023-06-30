@@ -25,6 +25,7 @@
 module mem_wb(
 input wire clk,
 input wire rst,
+input wire[5:0] stall,
 // ·Ã´æ½×¶Î½á¹û
 input wire[`RegAddrBus] mem_wd,
 input wire mem_wreg,
@@ -40,7 +41,11 @@ always @ (posedge clk) begin
         wb_wd <= `NOPRegAddr;
         wb_wreg <= `WriteDisable;
         wb_wdata <= `Zero; 
-     end else begin
+     end else if(stall[4] == `Stop && stall[5] == `NoStop) begin    //·Ã´æ½×¶ÎÔÝÍ£ »ØÐ´½×¶Î¼ÌÐø Ê¹ÓÃ¿ÕÖ¸Áî
+        wb_wd <= `NOPRegAddr;
+        wb_wreg <= `WriteDisable;
+        wb_wdata <= `Zero; 
+     end else if(stall[4] == `NoStop) begin         //·Ã´æ½×¶Î¼ÌÐø ·Ã´æºóµÄÖ¸Áî½øÈë»ØÐ´½×¶Î
          wb_wd <= mem_wd;
          wb_wreg <= mem_wreg;
         wb_wdata <= mem_wdata;

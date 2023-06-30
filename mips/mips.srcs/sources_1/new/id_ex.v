@@ -27,7 +27,7 @@
 module id_ex(
 input wire clk,
 input wire rst,
-
+input wire[5:0] stall,
 //译码阶段传来的信息
 input wire[`AluOpBus] id_aluop,     //运算类型
 input wire[`AluSelBus] id_alusel,   //运算字类型
@@ -64,7 +64,15 @@ always @(posedge clk) begin
         ex_link_address <= `Zero;
         ex_is_in_delayslot <= `NotInDelaySlot;
         is_in_delayslot_o <= `NotInDelaySlot;
-    end else begin
+    end else if(stall[2] == `Stop && stall[3] == `NoStop) begin //译码阶段暂停 执行阶段继续 用空指令填充
+        ex_aluop <= `EXE_NOP_OP;
+        ex_alusel <= `EXE_RES_NOP;
+        ex_reg1 <= `Zero;
+        ex_reg2 <= `Zero;
+        ex_wd <= `NOPRegAddr;
+        ex_wreg <= `WriteDisable;
+        ex_link_address <= `Zero;        
+    end else if(stall[2] == `NoStop) begin //译码阶段继续 译码后的指令进入执行阶段
         ex_aluop <= id_aluop;
         ex_alusel <= id_alusel;
         ex_reg1 <= id_reg1;

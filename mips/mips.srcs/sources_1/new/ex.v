@@ -45,7 +45,9 @@ output reg wreg_o,              //是否有目的寄存器
 output reg[`RegDataBus] wdata_o,//最终要写入目的寄存器的 值
 output wire[`AluOpBus] aluop_o, //执行阶段指令的子类型
 output wire[`RegDataBus] mem_addr_o,//加载/存储指令对应的存储器地址
-output wire[`RegDataBus] reg2_o //存储数据
+output wire[`RegDataBus] reg2_o,//存储数据
+
+output reg stallreq
     );
 // 逻辑运算的结果
 reg[`RegDataBus] logicout;

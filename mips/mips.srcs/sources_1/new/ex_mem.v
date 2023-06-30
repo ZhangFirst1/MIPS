@@ -26,7 +26,7 @@
 module ex_mem(
 input wire clk,
 input wire rst,
-
+input wire[5:0] stall,
 //来自执行阶段
 input wire[`RegAddrBus] ex_wd,  //指令执行后要写入的目的寄存器
 input wire ex_wreg,             //是否要写入
@@ -51,7 +51,14 @@ always @ (posedge clk) begin
         mem_aluop <= `EXE_NOP_OP;
         mem_mem_addr <= `Zero;
         mem_reg2 <= `Zero;
-    end else begin
+    end else if(stall[3] == `Stop && stall[4] == `NoStop) begin //执行阶段暂停 访存阶段继续 使用空指令
+        mem_wd <= `NOPRegAddr;
+        mem_wreg <= `WriteDisable;
+        mem_wdata <= `Zero;
+        mem_aluop <= `EXE_NOP_OP;
+        mem_mem_addr <= `Zero;
+        mem_reg2 <= `Zero;
+    end else if(stall[3] == `NoStop) begin     //执行阶段继续 执行后指令进入访存阶段
         mem_wd <= ex_wd;
         mem_wreg <= ex_wreg;
         mem_wdata <= ex_wdata; 

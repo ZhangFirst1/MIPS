@@ -62,8 +62,10 @@ output reg branch_flag_o,               //是否发生转移
 output reg is_in_delayslot_o,           //当前译码阶段的指令是否处于延迟槽
 output reg next_inst_in_delayslot_o,    //下一条进入译码阶段的指令是否位于延迟槽
 output reg[`RegDataBus] link_addr_o,    //转移指令要保存的返回地址
-output reg[`RegDataBus] branch_target_address_o    //转移到的目标地址
+output reg[`RegDataBus] branch_target_address_o,    //转移到的目标地址
 
+//暂停
+output wire stallreq
     );
 //取得指令的指令码、功能码
 //对于ori 判断26-31位的值即可判断
@@ -71,6 +73,8 @@ wire[5:0] op = inst_i[31:26];   //op字段
 wire[4:0] op2 = inst_i[10:6];   //shamt字段
 wire[5:0] op3 = inst_i[5:0];    //func字段
 wire[4:0] op4 = inst_i[20:16];  //rt字段
+//暂停
+assign stallreq = `NoStop;
 
 //保存指令执行需要的立即数
 reg[`RegDataBus] imm;
@@ -168,7 +172,8 @@ always @(*) begin
             branch_flag_o <= `Branch;   //是绝对转移指令
             next_inst_in_delayslot_o <= `InDelaySlot; //下一条指令在延迟槽中
             instValid = `InstValid;
-            branch_target_address_o <= {pc_plus_4[31:28],2'b00, inst_i[25:2], 2'b00}; //跳转地址
+            //branch_target_address_o <= {pc_plus_4[31:28],2'b00, inst_i[25:2], 2'b00}; //跳转地址
+            branch_target_address_o <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};
         end
         `EXE_BEQ: begin     //BEQ指令
             wreg_o <= `WriteDisable;    //不需要保存返回地址F
