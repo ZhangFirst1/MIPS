@@ -65,7 +65,10 @@ output reg[`RegDataBus] link_addr_o,    //转移指令要保存的返回地址
 output reg[`RegDataBus] branch_target_address_o,    //转移到的目标地址
 
 //暂停
-output wire stallreq
+output wire stallreq,
+
+//解决load相关问题
+input wire[`AluOpBus] ex_aluop_i
     );
 //取得指令的指令码、功能码
 //对于ori 判断26-31位的值即可判断
@@ -93,6 +96,15 @@ wire[`RegDataBus] offset_ltwo_extend;  //分支指令offset左移两位，再扩展至32位
 assign pc_plus_8 = pc_i + 8;    //保存当前译码阶段指令后面第2条指令的地址
 assign pc_plus_4 = pc_i + 4;    //保存当前译码阶段指令后面第1条指令的地址
 assign offset_ltwo_extend = {{14{inst_i[15]}}, inst_i[15:0], 2'b00}; //先左移再符号扩展
+
+//表示要读取的寄存器1是否与上一条指令存在load相关
+reg stallreq_for_reg1_loadrelate;
+//寄存器2是否相关
+reg stallreq_for_reg2_loadrelate;
+//上一条指令是否是加载指令
+wire pre_inst_is_load;
+//根据ex_aluop_i的值 判断上一条是否是加载指令
+assign pre_inst_is_load = ((ex_aluop_i == `EXE_LW_OP) || (ex_aluop_i == `EXE_SW_OP)) ? 1'b1 : 1'b0;
 
 /*******************1.对指令译码***********************/
 always @(*) begin
@@ -212,10 +224,14 @@ always @(*) begin
 end //always
 
 /*******************2.确定源操作数1***********************/
-
+//如果上一条是加载指令，且加载的目的寄存器就是当前指令要通过Regfile读端口1的寄存器
+//则存在load相关 设置stallreq_for_reg1_loadrelate为STOP
 always @ (*) begin
+    stallreq_for_reg1_loadrelate <= `NoStop;
     if(rst == `RstEnable) begin
         reg1_o <= `Zero;
+    end else if(pre_inst_is_load == 1'b1 && ex_wd_i == reg1_addr_o && reg1_read_o == 1'b1) begin
+        stallreq_for_reg1_loadrelate <= `Stop;
     //接下来两条if用于解决数据线相关问题
     //如果Regfile模块读端口1要读取的寄存器就是执行阶段要写的寄存器，直接把执行结果赋给reg1_o
     end else if((reg1_read_o == 1'b1) && (ex_wreg_i == 1'b1) && (ex_wd_i == reg1_addr_o)) begin
@@ -234,8 +250,11 @@ end
 
 /*******************3.确定源操作数2***********************/
 always @ (*) begin
+    stallreq_for_reg2_loadrelate <= `NoStop;
     if(rst == `RstEnable) begin
         reg2_o <= `Zero;
+    end else if(pre_inst_is_load == 1'b1 && ex_wd_i == reg1_addr_o && reg1_read_o == 1'b1) begin
+        stallreq_for_reg2_loadrelate <= `Stop;
     //接下来两条if用于解决数据线相关问题
     //如果Regfile模块读端口2要读取的寄存器就是执行阶段要写的寄存器，直接把执行结果赋给reg1_o
     end else if((reg2_read_o == 1'b1) && (ex_wreg_i == 1'b1) && (ex_wd_i == reg2_addr_o)) begin
@@ -260,5 +279,9 @@ always @(*) begin
         is_in_delayslot_o <= is_in_delayslot_i;
     end
 end
+
+/********************解决load相关****************************/
+//二者之一为Stop则存在load相关，流水线暂停
+assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
 
 endmodule

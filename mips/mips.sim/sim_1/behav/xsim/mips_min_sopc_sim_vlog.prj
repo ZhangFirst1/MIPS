@@ -1,5 +1,7 @@
 # compile verilog/system verilog design source files
 verilog xil_defaultlib  \
+"../../../../mips.srcs/sources_1/new/ctrl.v" \
+"../../../../mips.srcs/sources_1/new/data_ram.v" \
 "../../../../mips.srcs/sources_1/new/ex.v" \
 "../../../../mips.srcs/sources_1/new/ex_mem.v" \
 "../../../../mips.srcs/sources_1/new/id.v" \

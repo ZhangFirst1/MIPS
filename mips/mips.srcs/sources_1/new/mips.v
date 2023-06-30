@@ -62,6 +62,7 @@ wire[`RegDataBus] id_link_addr_o;
 wire id_next_inst_in_delayslot_o;
 wire[`RegDataBus] id_branch_target_address_o;
 wire id_branch_flag_o;
+wire[`RegDataBus] id_inst_o; // 传送指令与存取相关
 
 // 连接ID/EX输出 与 执行阶段EX输入 的变量
 wire[`AluOpBus] ex_aluop_i;
@@ -73,16 +74,23 @@ wire[`RegAddrBus] ex_wd_i;
 wire ex_is_in_delayslot_i;
 wire[`RegDataBus] ex_link_address_i;
 wire id_is_in_delayslot_i;
+wire[`RegDataBus] ex_inst_i; //传送指令与存取相关
 
 // 连接EX输出 与 EX/MEM输入 的变量
 wire ex_wreg_o;
 wire[`RegAddrBus] ex_wd_o;
 wire[`RegDataBus] ex_wdata_o;
+wire[`AluOpBus] ex_aluop_o; //访存类型
+wire[`RegDataBus] ex_mem_addr_o; //访存地址
+wire[`RegDataBus] ex_reg2_o; //要写入的数据
 
 // 连接EX/MEM输出 与 访存阶段MEM输入 的变量
 wire mem_wreg_i;
 wire[`RegAddrBus] mem_wd_i;
 wire[`RegDataBus] mem_wdata_i;
+wire[`AluOpBus] mem_aluop_i;  //访存地址
+wire[`RegDataBus] mem_mem_addr_i; //要写入的数据的地址
+wire[`RegDataBus] mem_reg2_i; //要写入的数据
 
 // 连接MEM输出 与 MEM/WB输入 的变量
 //wire wb_wreg_o;
@@ -95,9 +103,16 @@ wire wb_wreg_i;
 wire[`RegAddrBus] wb_wd_i;
 wire[`RegDataBus] wb_wdata_i;
 
+// 连接CTRL与各个部件 的变量
+// 输入
+wire[5:0] id_stallreq_i;   //ID请求暂停
+wire[5:0] ex_stallreq_i;   //EX请求暂停
+// 输出
+wire[5:0] ctrl_stall_o;      //ctrl控制其他的部件
+
 // pc_reg实例化
 pc_reg U_PC(
-    .clk(clk), .rst(rst), .pc(pc), .ce(rom_ce_o),
+    .clk(clk), .rst(rst), .pc(pc), .ce(rom_ce_o), .stall(ctrl_stall_o),
     //译码阶段送来的数据
     .branch_target_address_i(id_branch_target_address_o),
     .branch_flag_i(id_branch_flag_o)
@@ -106,7 +121,7 @@ assign rom_addr_o = pc; //指令存储器的输入地址就是pc的值
 
 // IF/ID实例化
 if_id if_id0(
-    .clk(clk), .rst(rst), 
+    .clk(clk), .rst(rst), .stall(ctrl_stall_o),
     .if_pc(pc),//pc产生的地址
     .if_inst(rom_data_i), //取出的指令
     .id_pc(id_pc_i), .id_inst(id_inst_i) //传递到ID阶段
@@ -118,7 +133,7 @@ id id0(
     //IF/ID传入
     .rst(rst), .pc_i(id_pc_i), .inst_i(id_inst_i), 
     //EX传入 解决数据相关问题
-    .ex_wdata_i(ex_wdata_o), .ex_wd_i(ex_wd_o), .ex_wreg_i(ex_wreg_o),
+    .ex_wdata_i(ex_wdata_o), .ex_wd_i(ex_wd_o), .ex_wreg_i(ex_wreg_o), .ex_aluop_i(ex_aluop_o),
     //MEM传入 解决数据相关问题
     .mem_wdata_i(mem_wdata_o), .mem_wd_i(mem_wd_o), .mem_wreg_i(mem_wreg_o),
     //ID/EX传入 解决跳转
@@ -133,8 +148,11 @@ id id0(
     .reg1_o(id_reg1_o), .reg2_o(id_reg2_o),
     .wd_o(id_wd_o), .wreg_o(id_wreg_o),
     .is_in_delayslot_o(id_is_in_delayslot_o), .link_addr_o(id_link_addr_o), .next_inst_in_delayslot_o(id_next_inst_in_delayslot_o),
+    .inst_o(id_inst_o), //存取相关
     //送到PC的信息
-    .branch_target_address_o(id_branch_target_address_o), .branch_flag_o(id_branch_flag_o)
+    .branch_target_address_o(id_branch_target_address_o), .branch_flag_o(id_branch_flag_o),
+    //传到ctrl
+    .stallreq(id_stallreq_i)
 );
 
 // 通用寄存器Regfile实例化
@@ -147,17 +165,19 @@ regfile U_RF(
 
 // ID/EX实例化
 id_ex id_ex0(
-    .clk(clk), .rst(rst),
+    .clk(clk), .rst(rst), .stall(ctrl_stall_o),
     //从ID 传来的信息
     .id_aluop(id_aluop_o), .id_alusel(id_alusel_o),
     .id_reg1(id_reg1_o), .id_reg2(id_reg2_o),
     .id_wd(id_wd_o), .id_wreg(id_wreg_o),
     .id_is_in_delayslot(id_is_in_delayslot_o), .id_link_address(id_link_addr_o), .next_inst_in_delayslot_i(id_next_inst_in_delayslot_o),
+    .id_inst(id_inst_o), //存取相关
     //送到执行模块EX 的信息
     .ex_aluop(ex_aluop_i), .ex_alusel(ex_alusel_i),
     .ex_reg1(ex_reg1_i), .ex_reg2(ex_reg2_i),
     .ex_wd(ex_wd_i), .ex_wreg(ex_wreg_i),
     .ex_is_in_delayslot(ex_is_in_delayslot_i),  .ex_link_address(ex_link_address_i),
+    .ex_inst(ex_inst_i), //存取相关
     //送到ID的信息
     .is_in_delayslot_o(id_is_in_delayslot_i)
 );
@@ -170,20 +190,32 @@ ex ex0(
     .reg1_i(ex_reg1_i), .reg2_i(ex_reg2_i),
     .wd_i(ex_wd_i), .wreg_i(ex_wreg_i),
     .is_in_delayslot_i(ex_is_in_delayslot_i), .link_address_i(ex_link_address_i),
+    .inst_i(ex_inst_i), //存取相关
     //输出到EX/MEM模块的信息
     .wd_o(ex_wd_o), .wreg_o(ex_wreg_o),
-    .wdata_o(ex_wdata_o)
+    .wdata_o(ex_wdata_o),
+    .aluop_o(ex_aluop_o), //存取相关
+    .mem_addr_o(ex_mem_addr_o),
+    .reg2_o(ex_reg2_o),
+    //传到ctrl
+    .stallreq(ex_stallreq_i)
  );
 
 // EX/MEM模块例化
 ex_mem ex_mem0(
-    .clk(clk), .rst(rst), 
+    .clk(clk), .rst(rst), .stall(ctrl_stall_o),
     // 来自执行阶段EX模块的信息
     .ex_wd(ex_wd_o), .ex_wreg(ex_wreg_o),
     .ex_wdata(ex_wdata_o),
+    .ex_aluop(ex_aluop_o), //存取相关
+    .ex_mem_addr(ex_mem_addr_o),
+     .ex_reg2(ex_reg2_o),
     // 送到访存阶段MEM模块的信息
     .mem_wd(mem_wd_i), .mem_wreg(mem_wreg_i),
-    .mem_wdata(mem_wdata_i)
+    .mem_wdata(mem_wdata_i),
+    .mem_aluop(mem_aluop_i), //存取相关
+    .mem_mem_addr(mem_mem_addr_i),
+    .mem_reg2(mem_reg2_i)
 );
 
 // MEM模块例化
@@ -192,6 +224,9 @@ mem U_DM(
     // 来自EX/MEM模块的信息
     .wd_i(mem_wd_i), .wreg_i(mem_wreg_i),
     .wdata_i(mem_wdata_i),
+    .aluop_i(mem_aluop_i), //存取相关
+    .mem_addr_i(mem_mem_addr_i),
+    .reg2_i(mem_reg2_i),
  
     // 送到MEM/WB模块的信息
     .wd_o(mem_wd_o), .wreg_o(mem_wreg_o),
@@ -208,7 +243,7 @@ mem U_DM(
  
 // MEM/WB模块例化
 mem_wb mem_wb0(
-    .clk(clk), .rst(rst),
+    .clk(clk), .rst(rst), .stall(ctrl_stall_o),
     // 来自访存阶段MEM模块的信息
     .mem_wd(mem_wd_o), .mem_wreg(mem_wreg_o),
     .mem_wdata(mem_wdata_o),
@@ -217,4 +252,13 @@ mem_wb mem_wb0(
     .wb_wdata(wb_wdata_i)
 );
 
+//CTRL模块
+ctrl ctrl0(
+    //各个模块输入
+    .rst(rst), .stallreq_from_id(id_stallreq_i), .stallreq_from_ex(ex_stallreq_i),
+    //向各个模块输出
+    .stall(ctrl_stall_o)
+);
+
 endmodule
+

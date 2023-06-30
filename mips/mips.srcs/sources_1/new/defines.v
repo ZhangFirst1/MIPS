@@ -91,3 +91,10 @@
 //******************暂停相关********************//
 `define Stop 1'b1   //流水线暂停
 `define NoStop 1'b0 //流水线继续
+
+//******************数据存储器ram相关**********************//
+`define DataAddrBus 31:0
+`define DataBus 31:0
+`define DataMemNum 1024
+`define DataMemNumLog2 10
+`define ByteWidth 7:0
