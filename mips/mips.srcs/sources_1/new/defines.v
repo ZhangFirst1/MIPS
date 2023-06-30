@@ -41,7 +41,10 @@
 `define EXE_ORI      6'b001101   //指令ori的指令码
 `define EXE_ADDU     6'b100001   //指令ADDU的指令码
 `define EXE_SUBU     6'b100011   //指令SUBU的指令码
-
+`define EXE_BEQ      6'b000100   //指令BEQ的指令码
+`define EXE_JAL      6'b000011   //指令JAL的指令码
+`define EXE_LW       6'b100011   //指令LW的指令码
+`define EXE_SW       6'b101011   //指令SW的指令码
 
 `define EXE_SPECIAL_INST   6'b000000    //算数运算
 
@@ -50,12 +53,24 @@
 //AluOp
 `define EXE_OR_OP   8'b00100101   //译码后的指令码
 `define EXE_NOP_OP  8'b00000000
-`define EXE_ADDU_OP  8'b00100001
-`define EXE_SUBU_OP  8'b00100011
+`define EXE_ADDU_OP 8'b00100001
+`define EXE_SUBU_OP 8'b00100011
+`define EXE_JAL_OP  8'b01010000
+`define EXE_BEQ_OP  8'b01010001
+`define EXE_LW_OP   8'b11100011
+`define EXE_SW_OP   8'b11101011
 //AluSel
 `define EXE_RES_LOGIC   3'b001     //译码后的子操作码
 `define EXE_RES_ARITHMETIC 3'b100	//算数运算
 `define EXE_RES_NOP 3'b000
+`define EXE_RES_JUMP_BRANCH 3'b110 //跳转指令
+`define EXE_RES_LOAD_STORE 3'b111  //加载指令
+
+//******************用于判断指令是否在延时槽中与是否为分支指令**********************//
+`define InDelaySlot    1'b1     //在延迟槽中
+`define NotInDelaySlot 1'b0     //不在
+`define Branch 1'b1
+`define NotBranch 1'b0
 
 //******************存储器ROM相关**********************//
 `define InstAddrBus 31:0 //ROM的地址总线宽度

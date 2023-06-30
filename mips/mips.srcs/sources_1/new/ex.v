@@ -29,17 +29,23 @@
 module ex(
 input wire rst,
 //ID/EX模块传递的信息
-input wire[`AluOpBus] aluop_i,  //运算类型
-input wire[`AluSelBus] alusel_i,//运算子类型
+input wire[`AluOpBus] aluop_i,  //运算子类型
+input wire[`AluSelBus] alusel_i,//运算类型
 input wire[`RegDataBus] reg1_i,//源操作数1
 input wire[`RegDataBus] reg2_i,//源操作数2
 input wire[`RegAddrBus] wd_i,   //目的寄存器
 input wire wreg_i,              //是否有目的寄存器
+input wire[`RegDataBus] link_address_i, //处于执行阶段的转移指令要保存的返回地址
+input wire is_in_delayslot_i,   //当前执行阶段指令是否在延迟槽中
+input wire[`RegDataBus] inst_i, //当前处于执行阶段的指令
 
 //执行结果
 output reg[`RegAddrBus] wd_o,   //执行阶段的指令要写入的 目的寄存器地址
 output reg wreg_o,              //是否有目的寄存器
-output reg[`RegDataBus] wdata_o //最终要写入目的寄存器的 值
+output reg[`RegDataBus] wdata_o,//最终要写入目的寄存器的 值
+output wire[`AluOpBus] aluop_o, //执行阶段指令的子类型
+output wire[`RegDataBus] mem_addr_o,//加载/存储指令对应的存储器地址
+output wire[`RegDataBus] reg2_o //存储数据
     );
 // 逻辑运算的结果
 reg[`RegDataBus] logicout;
@@ -48,6 +54,11 @@ reg[`RegDataBus] logicout;
 reg[`RegDataBus] arithmetic_res;           //运算结果
 wire[`RegDataBus] reg2_i_mux;   //保存第二个操作数的补码
 wire[`RegDataBus] res_sum;      //加法结果
+
+/**********************加载存储相关****************************/
+assign aluop_o = aluop_i;   //会传递至访存阶段 以确定加载存储类型
+assign mem_addr_o = reg1_i + {{16{inst_i[15]}}, inst_i[15:0]}; //计算存储器地址
+assign reg2_o = reg2_i;     //将存储的数据送到访存阶段
 
 /*************************1.计算加减法结果********************************/
 //1.1是无符号减则reg2_i_mux等于第二个数reg2_i的补码 否则reg2_i_mux等于第二个操作数reg2_i
@@ -87,7 +98,7 @@ always @(*) begin
     end//else
 end//always
 
-/*************** last.根据alusel_i选择一个运算结果为最终结果********************/   
+/*************** 3.根据alusel_i选择一个运算结果为最终结果********************/   
 always @(*) begin
     wd_o <= wd_i;   //要写的目的寄存器
     //无法判断无符号加减法是否溢出 故无需更改是否读写
@@ -98,6 +109,9 @@ always @(*) begin
         end
         `EXE_RES_ARITHMETIC: begin  //算数运算，写入运算结果
             wdata_o <= arithmetic_res;
+        end
+        `EXE_RES_JUMP_BRANCH: begin
+            wdata_o <= link_address_i;  //将返回地址写入目的寄存器
         end
         default: begin
             wdata_o <= `Zero;
