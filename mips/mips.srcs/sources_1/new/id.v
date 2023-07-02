@@ -105,6 +105,9 @@ reg stallreq_for_reg2_loadrelate;
 wire pre_inst_is_load;
 //根据ex_aluop_i的值 判断上一条是否是加载指令
 assign pre_inst_is_load = ((ex_aluop_i == `EXE_LW_OP) || (ex_aluop_i == `EXE_SW_OP)) ? 1'b1 : 1'b0;
+/********************解决load相关****************************/
+//二者之一为Stop则存在load相关，流水线暂停
+assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
 
 /*******************1.对指令译码***********************/
 always @(*) begin
@@ -280,8 +283,5 @@ always @(*) begin
     end
 end
 
-/********************解决load相关****************************/
-//二者之一为Stop则存在load相关，流水线暂停
-assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
 
 endmodule

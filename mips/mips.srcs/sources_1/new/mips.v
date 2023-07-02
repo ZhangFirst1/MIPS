@@ -105,8 +105,8 @@ wire[`RegDataBus] wb_wdata_i;
 
 // 连接CTRL与各个部件 的变量
 // 输入
-wire[5:0] id_stallreq_i;   //ID请求暂停
-wire[5:0] ex_stallreq_i;   //EX请求暂停
+wire id_stallreq_i;   //ID请求暂停
+wire ex_stallreq_i;   //EX请求暂停
 // 输出
 wire[5:0] ctrl_stall_o;      //ctrl控制其他的部件
 
