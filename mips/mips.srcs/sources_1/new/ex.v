@@ -51,6 +51,8 @@ output reg stallreq
     );
 // 逻辑运算的结果
 reg[`RegDataBus] logicout;
+// 保存位移运算结果
+reg[`RegDataBus] shiftres;
 
 // 算数运算
 reg[`RegDataBus] arithmetic_res;           //运算结果
@@ -100,6 +102,22 @@ always @(*) begin
     end//else
 end//always
 
+/*************************3.位移运算结果********************************/
+always @(*) begin
+    if(rst == `RstEnable) begin
+        shiftres <= `Zero;
+        end else begin
+            case(aluop_i)
+                `EXE_SLL_OP: begin  //逻辑左移
+                    shiftres <= reg2_i << reg1_i[4:0];
+                end
+                default: begin
+                    shiftres <= `Zero;
+                end
+            endcase
+        end //if
+end //always
+
 /*************** 3.根据alusel_i选择一个运算结果为最终结果********************/   
 always @(*) begin
     wd_o <= wd_i;   //要写的目的寄存器
@@ -114,6 +132,9 @@ always @(*) begin
         end
         `EXE_RES_JUMP_BRANCH: begin
             wdata_o <= link_address_i;  //将返回地址写入目的寄存器
+        end
+        `EXE_RES_SHIFT: begin
+            wdata_o <= shiftres;    //位移运算
         end
         default: begin
             wdata_o <= `Zero;

@@ -40,7 +40,7 @@ input wire[`RegAddrBus] raddr2, //同上
 output reg[`RegDataBus] rdata2
     );
 /* 32个32位寄存器 */
-(* MARK_DEBUG="true" *)reg[`RegDataBus] regs[0:`RegNum-1]; //二维向量
+reg[`RegDataBus] regs[0:`RegNum-1]; //二维向量
 
 /* 写操作 */
 always @(posedge clk) begin

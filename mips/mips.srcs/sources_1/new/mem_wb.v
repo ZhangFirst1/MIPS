@@ -46,8 +46,8 @@ always @ (posedge clk) begin
         wb_wreg <= `WriteDisable;
         wb_wdata <= `Zero; 
      end else if(stall[4] == `NoStop) begin         //·Ã´æ½×¶Î¼ÌÐø ·Ã´æºóµÄÖ¸Áî½øÈë»ØÐ´½×¶Î
-         wb_wd <= mem_wd;
-         wb_wreg <= mem_wreg;
+        wb_wd <= mem_wd;
+        wb_wreg <= mem_wreg;
         wb_wdata <= mem_wdata;
      end 
 end 

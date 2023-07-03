@@ -45,7 +45,7 @@ end
 always @(posedge clk) begin
     if (ce == `ChipDisable) begin
         pc <= `MarsZero;         //禁用时pc为0000_3000与Mars相对应
-    end else if(stall[0] == `NoStop)begin   //change
+    end else if(stall[0] == `NoStop)begin   
         if(branch_flag_i == `Branch) begin
             pc <= branch_target_address_i;  //发生转移 改变pc
         end else begin

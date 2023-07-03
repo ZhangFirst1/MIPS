@@ -76,8 +76,6 @@ wire[5:0] op = inst_i[31:26];   //op字段
 wire[4:0] op2 = inst_i[10:6];   //shamt字段
 wire[5:0] op3 = inst_i[5:0];    //func字段
 wire[4:0] op4 = inst_i[20:16];  //rt字段
-//暂停
-assign stallreq = `NoStop;
 
 //保存指令执行需要的立即数
 reg[`RegDataBus] imm;
@@ -105,6 +103,7 @@ reg stallreq_for_reg2_loadrelate;
 wire pre_inst_is_load;
 //根据ex_aluop_i的值 判断上一条是否是加载指令
 assign pre_inst_is_load = ((ex_aluop_i == `EXE_LW_OP) || (ex_aluop_i == `EXE_SW_OP)) ? 1'b1 : 1'b0;
+//assign pre_inst_is_load = 1'b0;
 /********************解决load相关****************************/
 //二者之一为Stop则存在load相关，流水线暂停
 assign stallreq = stallreq_for_reg1_loadrelate | stallreq_for_reg2_loadrelate;
@@ -171,7 +170,17 @@ always @(*) begin
                             reg1_read_o <= 1'b1;
                             reg2_read_o <= 1'b1;
                             instValid <= `InstValid;                       
-                        end                      
+                        end      
+                        `EXE_SLL: begin
+                            wreg_o <= `WriteEnable;
+                            aluop_o <= `EXE_SLL_OP;
+                            alusel_o <= `EXE_RES_SHIFT;
+                            reg1_read_o <= 1'b0;
+                            reg2_read_o <= 1'b1;        //寄存器rt
+                            imm[4:0] <= inst_i[10:6];   //位移sa
+                            wd_o <= inst_i[15:11];      //写入寄存器rd
+                            instValid <= `InstValid;
+                        end                
                     endcase //op3              
                 end     //5'b00000
             endcase    //op2
@@ -183,15 +192,16 @@ always @(*) begin
             reg1_read_o <= 1'b0;        //无需读取通用寄存器
             reg2_read_o <= 1'b0;
             wd_o <= 5'b11111;           //jal将返回地址写道寄存器$31中
-            link_addr_o <= pc_plus_8;   //设置返回地址为第2条指令的地址
+            //link_addr_o <= pc_plus_8;   //设置返回地址为第2条指令的地址(延迟槽)
+            link_addr_o <= pc_plus_4;       //设置返回地址为第1条指令的地址
             branch_flag_o <= `Branch;   //是绝对转移指令
-            next_inst_in_delayslot_o <= `InDelaySlot; //下一条指令在延迟槽中
+            //next_inst_in_delayslot_o <= `InDelaySlot; //下一条指令在延迟槽中
+            next_inst_in_delayslot_o <= `NotInDelaySlot;    //屏蔽延迟槽
             instValid = `InstValid;
-            //branch_target_address_o <= {pc_plus_4[31:28],2'b00, inst_i[25:2], 2'b00}; //跳转地址
             branch_target_address_o <= {pc_plus_4[31:28], inst_i[25:0], 2'b00};
         end
         `EXE_BEQ: begin     //BEQ指令
-            wreg_o <= `WriteDisable;    //不需要保存返回地址F
+            wreg_o <= `WriteDisable;    //不需要保存返回地址
             aluop_o <= `EXE_BEQ_OP;     //可能有误
             alusel_o <= `EXE_RES_JUMP_BRANCH;
             reg1_read_o <= 1'b1;
@@ -200,7 +210,8 @@ always @(*) begin
             if (reg1_o == reg2_o) begin //符合beg跳转条件
                 branch_target_address_o <= pc_plus_4 + offset_ltwo_extend;  //跳转地址
                 branch_flag_o <= `Branch;
-                next_inst_in_delayslot_o <= `InDelaySlot;   // 下一条指令再延迟槽中
+                //next_inst_in_delayslot_o <= `InDelaySlot;   // 下一条指令再延迟槽中
+                next_inst_in_delayslot_o <= `NotInDelaySlot;    //屏蔽延迟槽
             end 
         end
         `EXE_LW: begin
@@ -256,7 +267,7 @@ always @ (*) begin
     stallreq_for_reg2_loadrelate <= `NoStop;
     if(rst == `RstEnable) begin
         reg2_o <= `Zero;
-    end else if(pre_inst_is_load == 1'b1 && ex_wd_i == reg1_addr_o && reg1_read_o == 1'b1) begin
+    end else if(pre_inst_is_load == 1'b1 && ex_wd_i == reg2_addr_o && reg1_read_o == 1'b1) begin
         stallreq_for_reg2_loadrelate <= `Stop;
     //接下来两条if用于解决数据线相关问题
     //如果Regfile模块读端口2要读取的寄存器就是执行阶段要写的寄存器，直接把执行结果赋给reg1_o
@@ -279,7 +290,8 @@ always @(*) begin
     if(rst == `RstEnable) begin
         is_in_delayslot_o <= `NotInDelaySlot;
     end else begin
-        is_in_delayslot_o <= is_in_delayslot_i;
+        is_in_delayslot_o <= `NotInDelaySlot;   //屏蔽延迟槽
+        //is_in_delayslot_o <= is_in_delayslot_i;
     end
 end
 

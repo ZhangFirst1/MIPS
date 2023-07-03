@@ -80,8 +80,10 @@ always @(posedge clk) begin
         ex_wd <= id_wd;
         ex_wreg <= id_wreg;
         ex_link_address <= id_link_address;
-        ex_is_in_delayslot <= id_is_in_delayslot;
-        is_in_delayslot_o <= next_inst_in_delayslot_i;
+        //ex_is_in_delayslot <= id_is_in_delayslot;
+        ex_is_in_delayslot <= `NotInDelaySlot;
+        //is_in_delayslot_o <= next_inst_in_delayslot_i;
+        is_in_delayslot_o <= `NotInDelaySlot;
         ex_inst <= id_inst;
     end
 end

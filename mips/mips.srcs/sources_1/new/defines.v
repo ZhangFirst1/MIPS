@@ -41,6 +41,7 @@
 `define EXE_ORI      6'b001101   //指令ori的指令码
 `define EXE_ADDU     6'b100001   //指令ADDU的指令码
 `define EXE_SUBU     6'b100011   //指令SUBU的指令码
+`define EXE_SLL      6'b000000   //指令SLL的指令码
 `define EXE_BEQ      6'b000100   //指令BEQ的指令码
 `define EXE_JAL      6'b000011   //指令JAL的指令码
 `define EXE_LW       6'b100011   //指令LW的指令码
@@ -59,13 +60,14 @@
 `define EXE_BEQ_OP  8'b01010001
 `define EXE_LW_OP   8'b11100011
 `define EXE_SW_OP   8'b11101011
+`define EXE_SLL_OP  8'b01111100
 //AluSel
-`define EXE_RES_LOGIC   3'b001     //译码后的子操作码
-`define EXE_RES_ARITHMETIC 3'b100	//算数运算
-`define EXE_RES_NOP 3'b000
-`define EXE_RES_JUMP_BRANCH 3'b110 //跳转指令
-`define EXE_RES_LOAD_STORE 3'b111  //加载指令
-
+`define EXE_RES_LOGIC       3'b001     //译码后的子操作码
+`define EXE_RES_ARITHMETIC  3'b100	    //算数运算
+`define EXE_RES_NOP         3'b000
+`define EXE_RES_JUMP_BRANCH 3'b110      //跳转指令
+`define EXE_RES_LOAD_STORE  3'b111      //加载指令
+`define EXE_RES_SHIFT       3'b010      //位移指令
 //******************用于判断指令是否在延时槽中与是否为分支指令**********************//
 `define InDelaySlot    1'b1     //在延迟槽中
 `define NotInDelaySlot 1'b0     //不在
