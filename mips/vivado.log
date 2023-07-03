@@ -1,0 +1,266 @@
+#-----------------------------------------------------------
+# Vivado v2017.4 (64-bit)
+# SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+# IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+# Start of session at: Mon Jun 26 11:13:35 2023
+# Process ID: 22508
+# Current directory: C:/Users/ZhangFirst1/Desktop/cclab/mips
+# Command line: vivado.exe -gui_launcher_event rodinguilauncherevent13096 C:\Users\ZhangFirst1\Desktop\cclab\mips\mips.xpr
+# Log file: C:/Users/ZhangFirst1/Desktop/cclab/mips/vivado.log
+# Journal file: C:/Users/ZhangFirst1/Desktop/cclab/mips\vivado.jou
+#-----------------------------------------------------------
+start_gui
+open_project C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.xpr
+INFO: [Project 1-313] Project file moved from 'C:/Users/ZhangFirst1/Desktop/CC/lab1/mips' since last save.
+Scanning sources...
+Finished scanning sources
+INFO: [IP_Flow 19-234] Refreshing IP repositories
+INFO: [IP_Flow 19-1704] No user IP repositories specified
+INFO: [IP_Flow 19-2313] Loaded Vivado IP repository 'D:/Vivado/Vivado/2017.4/data/ip'.
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+close [ open C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v w ]
+add_files C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v
+update_compile_order -fileset sources_1
+close [ open C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v w ]
+add_files C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v
+update_compile_order -fileset sources_1
+update_compile_order -fileset sources_1
+file mkdir C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new
+set_property SOURCE_SET sources_1 [get_filesets sim_1]
+close [ open C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v w ]
+add_files -fileset sim_1 C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v
+update_compile_order -fileset sim_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'mips_min_sopc' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mips_min_sopc_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_rom
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/pc_reg.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/regfile.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips_min_sopc
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/glbl.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module glbl
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+Vivado Simulator 2017.4
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: D:/Vivado/Vivado/2017.4/bin/unwrapped/win64.o/xelab.exe -wto b26be5e4c3c2492c9ad6a7f80fdc43f9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot mips_min_sopc_behav xil_defaultlib.mips_min_sopc xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+ERROR: [VRFC 10-426] cannot find port werg_o on this module [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:108]
+ERROR: [VRFC 10-2063] Module <regfile> not found while processing module instance <U_RF> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:112]
+ERROR: [VRFC 10-2063] Module <id_ex> not found while processing module instance <id_ex0> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:120]
+ERROR: [VRFC 10-2063] Module <ex> not found while processing module instance <ex0> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:133]
+ERROR: [VRFC 10-2063] Module <ex_mem> not found while processing module instance <ex_mem0> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:145]
+ERROR: [VRFC 10-2063] Module <mem> not found while processing module instance <U_DM> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:156]
+ERROR: [VRFC 10-2063] Module <mem_wb> not found while processing module instance <mem_wb0> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v:168]
+ERROR: [VRFC 10-2063] Module <inst_rom> not found while processing module instance <inst_rom0> [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v:40]
+ERROR: [XSIM 43-3322] Static elaboration of top level Verilog design unit(s) in library work failed.
+INFO: [USF-XSim-69] 'elaborate' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/elaborate.log'
+ERROR: [USF-XSim-62] 'elaborate' step failed with error(s). Please check the Tcl console output or 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/elaborate.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+update_compile_order -fileset sim_1
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'mips_min_sopc_sim' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mips_min_sopc_sim_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips_min_sopc_sim
+ERROR: [VRFC 10-1532] use of undefined macro RstEnable [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v:36]
+ERROR: [VRFC 10-1412] syntax error near ; [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v:36]
+ERROR: [VRFC 10-1532] use of undefined macro RstDisable [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v:37]
+ERROR: [VRFC 10-1412] syntax error near ; [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v:37]
+WARNING: [VRFC 10-2096] empty statement in sequential block [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v:35]
+ERROR: [VRFC 10-1040] module mips_min_sopc_sim ignored due to previous errors [C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v:23]
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-99] Step results log file:'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/xvlog.log'
+ERROR: [USF-XSim-62] 'compile' step failed with error(s). Please check the Tcl console output or 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/xvlog.log' file for more information.
+ERROR: [Vivado 12-4473] Detected error while running simulation. Please correct the issue and retry this operation.
+ERROR: [Common 17-39] 'launch_simulation' failed due to earlier errors.
+launch_simulation
+INFO: [Vivado 12-5682] Launching behavioral simulation in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+INFO: [SIM-utils-51] Simulation object is 'sim_1'
+INFO: [SIM-utils-54] Inspecting design source files for 'mips_min_sopc_sim' in fileset 'sim_1'...
+INFO: [USF-XSim-97] Finding global include files...
+INFO: [USF-XSim-98] Fetching design files from 'sim_1'...
+INFO: [USF-XSim-2] XSim::Compile design
+INFO: [USF-XSim-61] Executing 'COMPILE and ANALYZE' step in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+"xvlog --incr --relax -prj mips_min_sopc_sim_vlog.prj"
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex_mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module ex_mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id_ex.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module id_ex
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/if_id.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module if_id
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module inst_rom
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem_wb.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mem_wb
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips_min_sopc
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/pc_reg.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module pc_reg
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/regfile.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module regfile
+INFO: [VRFC 10-2263] Analyzing Verilog file "C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v" into library xil_defaultlib
+INFO: [VRFC 10-311] analyzing module mips_min_sopc_sim
+INFO: [USF-XSim-69] 'compile' step finished in '1' seconds
+INFO: [USF-XSim-3] XSim::Elaborate design
+INFO: [USF-XSim-61] Executing 'ELABORATE' step in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+Vivado Simulator 2017.4
+Copyright 1986-1999, 2001-2016 Xilinx, Inc. All Rights Reserved.
+Running: D:/Vivado/Vivado/2017.4/bin/unwrapped/win64.o/xelab.exe -wto b26be5e4c3c2492c9ad6a7f80fdc43f9 --incr --debug typical --relax --mt 2 -L xil_defaultlib -L unisims_ver -L unimacro_ver -L secureip --snapshot mips_min_sopc_sim_behav xil_defaultlib.mips_min_sopc_sim xil_defaultlib.glbl -log elaborate.log 
+Using 2 slave threads.
+Starting static elaboration
+Completed static elaboration
+Starting simulation data flow analysis
+Completed simulation data flow analysis
+Time Resolution for simulation is 1ps
+Compiling module xil_defaultlib.pc_reg
+Compiling module xil_defaultlib.if_id
+Compiling module xil_defaultlib.id
+Compiling module xil_defaultlib.regfile
+Compiling module xil_defaultlib.id_ex
+Compiling module xil_defaultlib.ex
+Compiling module xil_defaultlib.ex_mem
+Compiling module xil_defaultlib.mem
+Compiling module xil_defaultlib.mem_wb
+Compiling module xil_defaultlib.mips
+Compiling module xil_defaultlib.inst_rom
+Compiling module xil_defaultlib.mips_min_sopc
+Compiling module xil_defaultlib.mips_min_sopc_sim
+Compiling module xil_defaultlib.glbl
+Built simulation snapshot mips_min_sopc_sim_behav
+
+****** Webtalk v2017.4 (64-bit)
+  **** SW Build 2086221 on Fri Dec 15 20:55:39 MST 2017
+  **** IP Build 2085800 on Fri Dec 15 22:25:07 MST 2017
+    ** Copyright 1986-2017 Xilinx, Inc. All Rights Reserved.
+
+source C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/xsim.dir/mips_min_sopc_sim_behav/webtalk/xsim_webtalk.tcl -notrace
+INFO: [Common 17-206] Exiting Webtalk at Mon Jun 26 16:26:44 2023...
+INFO: [USF-XSim-69] 'elaborate' step finished in '2' seconds
+INFO: [USF-XSim-4] XSim::Simulate design
+INFO: [USF-XSim-61] Executing 'SIMULATE' step in 'C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim'
+INFO: [USF-XSim-98] *** Running xsim
+   with args "mips_min_sopc_sim_behav -key {Behavioral:sim_1:Functional:mips_min_sopc_sim} -tclbatch {mips_min_sopc_sim.tcl} -log {simulate.log}"
+INFO: [USF-XSim-8] Loading simulator feature
+Vivado Simulator 2017.4
+Time resolution is 1 ps
+source mips_min_sopc_sim.tcl
+# set curr_wave [current_wave_config]
+# if { [string length $curr_wave] == 0 } {
+#   if { [llength [get_objects]] > 0} {
+#     add_wave /
+#     set_property needs_save false [current_wave_config]
+#   } else {
+#      send_msg_id Add_Wave-1 WARNING "No top level signals found. Simulator will start without a wave window. If you want to open a wave window go to 'File->New Waveform Configuration' or type 'create_wave_config' in the TCL console."
+#   }
+# }
+# run 1000ns
+WARNING: File inst_rom.data referenced on C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v at line 34 cannot be opened for reading. Please ensure that this file is available in the current working directory.
+INFO: [USF-XSim-96] XSim completed. Design snapshot 'mips_min_sopc_sim_behav' loaded.
+INFO: [USF-XSim-97] XSim simulation ran for 1000ns
+launch_simulation: Time (s): cpu = 00:00:03 ; elapsed = 00:00:08 . Memory (MB): peak = 1023.246 ; gain = 11.930
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1
+
+launch_runs synth_1 -jobs 4
+[Mon Jun 26 16:35:31 2023] Launched synth_1...
+Run output will be captured here: C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1
+
+launch_runs synth_1 -jobs 4
+[Mon Jun 26 16:47:02 2023] Launched synth_1...
+Run output will be captured here: C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1
+
+launch_runs synth_1 -jobs 8
+[Mon Jun 26 17:03:21 2023] Launched synth_1...
+Run output will be captured here: C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1
+
+launch_runs synth_1 -jobs 8
+[Mon Jun 26 17:05:48 2023] Launched synth_1...
+Run output will be captured here: C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1
+
+launch_runs synth_1 -jobs 8
+[Mon Jun 26 17:08:12 2023] Launched synth_1...
+Run output will be captured here: C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1/runme.log
+reset_run synth_1
+WARNING: [Vivado 12-1017] Problems encountered:
+1. Failed to delete one or more files in run directory C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1
+
+launch_runs synth_1 -jobs 8
+[Mon Jun 26 17:10:45 2023] Launched synth_1...
+Run output will be captured here: C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.runs/synth_1/runme.log
+open_run synth_1 -name synth_1
+Design is defaulting to impl run constrset: constrs_1
+Design is defaulting to synth run part: xc7a100tfgg484-1
+INFO: [Project 1-479] Netlist was created with Vivado 2017.4
+INFO: [Device 21-403] Loading part xc7a100tfgg484-1
+INFO: [Project 1-570] Preparing netlist for logic optimization
+INFO: [Opt 31-138] Pushed 0 inverter(s) to 0 load pin(s).
+INFO: [Project 1-111] Unisim Transformation Summary:
+No Unisim elements were transformed.
+
+open_run: Time (s): cpu = 00:00:17 ; elapsed = 00:00:09 . Memory (MB): peak = 1493.848 ; gain = 456.512
+close_sim
+INFO: [Simtcl 6-16] Simulation closed
+exit
+INFO: [Common 17-206] Exiting Vivado at Mon Jun 26 17:13:37 2023...

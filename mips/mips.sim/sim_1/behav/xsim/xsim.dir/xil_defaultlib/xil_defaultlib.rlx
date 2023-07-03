@@ -1,0 +1,21 @@
+0.6
+2017.4
+Dec 15 2017
+21:07:18
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.sim/sim_1/behav/xsim/glbl.v,1513215259,verilog,,,,glbl,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v,1687782479,verilog,,,,mips_min_sopc_sim,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ctrl.v,1688283065,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/data_ram.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,ctrl,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/data_ram.v,1688116856,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,data_ram,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,1688346992,verilog,,,,,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex.v,1688347764,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex_mem.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,ex,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/ex_mem.v,1688112328,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,ex_mem,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id.v,1688347351,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id_ex.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,id,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/id_ex.v,1688285946,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/if_id.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,id_ex,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/if_id.v,1688109597,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,if_id,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/inst_rom.v,1687770643,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,inst_rom,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem.v,1688093756,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem_wb.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,mem,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mem_wb.v,1688271280,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,mem_wb,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips.v,1688204194,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,mips,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/mips_min_sopc.v,1688116716,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/pc_reg.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,mips_min_sopc,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/pc_reg.v,1688286755,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/regfile.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,pc_reg,,,,,,,,
+C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/regfile.v,1688268863,verilog,,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sim_1/new/mips_min_sopc_sim.v,C:/Users/ZhangFirst1/Desktop/cclab/mips/mips.srcs/sources_1/new/defines.v,regfile,,,,,,,,

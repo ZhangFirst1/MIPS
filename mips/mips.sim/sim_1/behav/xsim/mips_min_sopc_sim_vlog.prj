@@ -1,0 +1,23 @@
+# compile verilog/system verilog design source files
+verilog xil_defaultlib  \
+"../../../../mips.srcs/sources_1/new/ctrl.v" \
+"../../../../mips.srcs/sources_1/new/data_ram.v" \
+"../../../../mips.srcs/sources_1/new/ex.v" \
+"../../../../mips.srcs/sources_1/new/ex_mem.v" \
+"../../../../mips.srcs/sources_1/new/id.v" \
+"../../../../mips.srcs/sources_1/new/id_ex.v" \
+"../../../../mips.srcs/sources_1/new/if_id.v" \
+"../../../../mips.srcs/sources_1/new/inst_rom.v" \
+"../../../../mips.srcs/sources_1/new/mem.v" \
+"../../../../mips.srcs/sources_1/new/mem_wb.v" \
+"../../../../mips.srcs/sources_1/new/mips.v" \
+"../../../../mips.srcs/sources_1/new/mips_min_sopc.v" \
+"../../../../mips.srcs/sources_1/new/pc_reg.v" \
+"../../../../mips.srcs/sources_1/new/regfile.v" \
+"../../../../mips.srcs/sim_1/new/mips_min_sopc_sim.v" \
+
+# compile glbl module
+verilog xil_defaultlib "glbl.v"
+
+# Do not sort compile order
+nosort
