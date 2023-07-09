@@ -1,1 +1,0 @@
-java -jar C:\Users\ZhangFirst1\Desktop\cclab\Mars45.jar
